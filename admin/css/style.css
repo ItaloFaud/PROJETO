@@ -1,0 +1,12 @@
+#form { width:400px; height: 500px }
+.card { width: 23%; float: left; margin: 5px 5px; }
+
+
+.nav-link { color:#fff; font-weight: 700 }
+.nav-link:hover { color: #000; font-weight: 700}
+nav h3 { color: #fff }
+
+.DS span { font: 24px Arial; }
+.DS { color: #555; font: 32px Ubuntu;}
+
+h3 .jumbotron { font: 55px Arial; } 
