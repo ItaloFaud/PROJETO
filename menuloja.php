@@ -1,5 +1,4 @@
-<?php session_start(); ?>
-<!-- Header -->
+	<!-- Header -->
 	<header class="header1">
 		<!-- Header desktop -->
 		<div class="container-menu-header">
@@ -13,26 +12,19 @@
 				</div>
 
 				<span class="topbar-child1">
-					Frete grátis para pedidos padrão acima de US $ 100
+					Free shipping for standard order over R$1000
 				</span>
 
 				<div class="topbar-child2">
 					<span class="topbar-email">
-						pedroestavm@gmail.com
+						fashe@example.com
 					</span>
-
-					<div class="topbar-language rs1-select2">
-						<select class="selection-1" name="time">
-							<option>USD</option>
-							<option>EUR</option>
-						</select>
-					</div>
 				</div>
 			</div>
 
 			<div class="wrap_header">
 				<!-- Logo -->
-				<a href="index.html" class="logo">
+				<a href="index.php" class="logo">
 					<img src="images/icons/logo.png" alt="IMG-LOGO">
 				</a>
 
@@ -41,12 +33,7 @@
 					<nav class="menu">
 						<ul class="main_menu">
 							<li>
-								<a href="index.html">Home</a>
-								<ul class="sub_menu">
-									<li><a href="index.html">Homepage V1</a></li>
-									<li><a href="home-02.html">Homepage V2</a></li>
-									<li><a href="home-03.html">Homepage V3</a></li>
-								</ul>
+								<a href="index.php">Home</a>
 							</li>
 
 							<li>
@@ -54,11 +41,11 @@
 							</li>
 
 							<li class="sale-noti">
-								<a href="product.html">Sale</a>
+								<a href="product.php">Sale</a>
 							</li>
 
 							<li>
-								<a href="cart.html">Features</a>
+								<a href="cart.php">Features</a>
 							</li>
 
 							<li>
@@ -70,11 +57,7 @@
 							</li>
 
 							<li>
-								<a href="contact.php">Contact</a>
-							</li>
-
-							<li>
-								<a href="usercad.php">Cadastro</a>
+								<a href="contact.html">Contact</a>
 							</li>
 						</ul>
 					</nav>
@@ -82,116 +65,73 @@
 
 				<!-- Header Icon -->
 				<div class="header-icons">
-				<?php
-				error_reporting(0);
-				include "conexao.inc";
-				if ($_SESSION['id']) {
-
-					$s = "SELECT * FROM users WHERE id = '".$_SESSION['id']."'";
-					$query = mysqli_query($con,$s);
-						while($foto = mysqli_fetch_assoc($query)){ 
-						echo '
-						<a href="login.php?a=deslogar" class="header-wrapicon1 dis-block">
-						Deslogar |   
-						</a>
-							<a href="#" class="header-wrapicon1 dis-block">
-							| <img src="usuarios/'.$foto['foto'].'" class="header-icon1" alt="ICON">
-							</a>
-
-
-							';
-						}
-				}else{
-					echo '
-					<a href="login.php" class="header-wrapicon1 dis-block">
-						Login |   
-					</a>
-
 					<a href="#" class="header-wrapicon1 dis-block">
-						| <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 					</a>
 
-					';
-				}
-				?>
-				
-					
 					<span class="linedivide1"></span>
 
 					<div class="header-wrapicon2">
 						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti">0</span>
+						<span class="header-icons-noti"><?php 
+							echo count($_SESSION['carrinho']);
+						?></span>
 
 						<!-- Header cart noti -->
 						<div class="header-cart header-dropdown">
 							<ul class="header-cart-wrapitem">
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-01.jpg" alt="IMG">
-									</div>
+								<?php 
+									include 'conexao.inc';
+									$total = 0;
+									foreach ($_SESSION['carrinho'] as $id => $qnt) {
+										
+										$sql_carrinho = "SELECT * FROM produtos WHERE id = ".$id;
+										$query_carrinho = mysqli_query($con, $sql_carrinho);
+										$prods = mysqli_fetch_assoc($query_carrinho);
 
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											White Shirt With Pleat Detail Back
-										</a>
+										//$img = explode("-", $prods['url_img']);
+										$sql_foto = "SELECT * FROM foto WHERE id_produto = ".$id;
+										$query_foto = mysqli_query($con, $sql_foto);
+										$foto = mysqli_fetch_assoc($query_foto);
 
-										<span class="header-cart-item-info">
-											1 x $19.00
-										</span>
-									</div>
-								</li>
 
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-02.jpg" alt="IMG">
-									</div>
+										echo '<li class="header-cart-item">
+											<div class="header-cart-item-img">
+												<img src="admin/imgs/'.$foto['img1'].'" alt="IMG">
+											</div>
 
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Converse All Star Hi Black Canvas
-										</a>
+											<div class="header-cart-item-txt">
+												<a href="#" class="header-cart-item-name">
+													'.$prods['nome'].'
+												</a>
 
-										<span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-									</div>
-								</li>
+												<span class="header-cart-item-info">
+													'.$qnt.' x R$ '.number_format($prods['preco'], 2, ',', '.').'
+												</span>
+											</div>
+										</li>';
 
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-03.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Nixon Porter Leather Watch In Tan
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $17.00
-										</span>
-									</div>
-								</li>
+										$total += $qnt * $prods['preco'];
+									}
+								?>
 							</ul>
 
 							<div class="header-cart-total">
-								Total: $75.00
+								Total: <?php echo "".number_format($total, 2, ',', '.'); ?>
 							</div>
 
 							<div class="header-cart-buttons">
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Ver carrinho
-
+									<a href="cart.php" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+										View Cart
 									</a>
 								</div>
 
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
 									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Confira
-
+										Check Out
 									</a>
 								</div>
 							</div>
@@ -204,7 +144,7 @@
 		<!-- Header Mobile -->
 		<div class="wrap_header_mobile">
 			<!-- Logo moblie -->
-			<a href="index.html" class="logo-mobile">
+			<a href="index.php" class="logo-mobile">
 				<img src="images/icons/logo.png" alt="IMG-LOGO">
 			</a>
 
@@ -281,16 +221,15 @@
 							<div class="header-cart-buttons">
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Ver carrinho
+									<a href="cart.php" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+										View Cart
 									</a>
 								</div>
 
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
 									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Confira
-
+										Check Out
 									</a>
 								</div>
 							</div>
@@ -312,22 +251,16 @@
 				<ul class="main-menu">
 					<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
 						<span class="topbar-child1">
-							Frete grátis para pedidos padrão acima de US $ 100
+							Free shipping for standard order over R$1000
+
 						</span>
 					</li>
 
 					<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
 						<div class="topbar-child2-mobile">
 							<span class="topbar-email">
-								pedroestevam@example.com
+								fashe@example.com
 							</span>
-
-							<div class="topbar-language rs1-select2">
-								<select class="selection-1" name="time">
-									<option>USD</option>
-									<option>EUR</option>
-								</select>
-							</div>
 						</div>
 					</li>
 
@@ -342,25 +275,19 @@
 					</li>
 
 					<li class="item-menu-mobile">
-						<a href="index.html">Home</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Homepage V1</a></li>
-							<li><a href="home-02.html">Homepage V2</a></li>
-							<li><a href="home-03.html">Homepage V3</a></li>
-						</ul>
-						<i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
+						<a href="index.php">Home</a>
 					</li>
 
 					<li class="item-menu-mobile">
-						<a href="product.html">Shop</a>
+						<a href="product.php">Shop</a>
 					</li>
 
 					<li class="item-menu-mobile">
-						<a href="product.html">Sale</a>
+						<a href="product.php">Sale</a>
 					</li>
 
 					<li class="item-menu-mobile">
-						<a href="cart.html">Features</a>
+						<a href="cart.php">Features</a>
 					</li>
 
 					<li class="item-menu-mobile">

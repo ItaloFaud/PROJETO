@@ -1,5 +1,68 @@
+<!-- REQUIRE(), SESSION_START() E ERROR_REPORTING(0) -->
+<?php
+    error_reporting(0);
+    include'conexao.inc';
+    session_start();
 
+    //VERIFICAR SESSION
+ /* if (!isset($_SESSION['user'])) {
 
+    header('location: login.php');
+
+  }*/
+?>
+<!-- /REQUIRE() E SESSION_START() -->
+<?php 
+ /* //Busca dados
+  $sql = "SELECT * FROM usuarios WHERE usuario = '".$_SESSION['user']."'";
+  $query = mysqli_query($conexao, $sql);
+
+  while ($dados = mysqli_fetch_assoc($query)) {
+  	
+  	$nome = $dados['nome'];
+
+  	if ($dados['url_perfil'] != "") {
+
+  		$img_perfil = $dados['url_pefil'];
+
+  	} else {
+
+  		$img_perfil = "perfil.png";
+
+  	}
+
+  }*/
+?>
+<!-- Carrrinho -->
+<?php 
+	if (!isset($_SESSION['carrinho'])) {
+
+		$_SESSION['carrinho'] = array();
+
+	}
+
+	if (isset($_GET['acao'])) {
+		
+		if ($_GET['acao'] == 'add') {
+			
+			if (!isset($_SESSION['carrinho'][$_GET['id']])) {
+				
+				$_SESSION['carrinho'][$_GET['id']] = 1;
+				header('location: product.php');
+
+			} else {
+
+				$_SESSION['carrinho'][$_GET['id']] += 1;
+				header('location: product.php');
+
+			}
+
+		}
+
+	}
+	//session_destroy();
+?>
+<!--/Carrrinho -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,392 +100,15 @@
 </head>
 <body class="animsition">
 
-	<!-- Header -->
-		<header class="header1">
-		<!-- Header desktop -->
-		<div class="container-menu-header">
-			<div class="topbar">
-				<div class="topbar-social">
-					<a href="#" class="topbar-social-item fa fa-facebook"></a>
-					<a href="#" class="topbar-social-item fa fa-instagram"></a>
-					<a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
-					<a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
-					<a href="#" class="topbar-social-item fa fa-youtube-play"></a>
-				</div>
-
-				<span class="topbar-child1">
-					Free shipping for standard order over $100
-				</span>
-
-				<div class="topbar-child2">
-					<span class="topbar-email">
-						fashe@example.com
-					</span>
-
-					<div class="topbar-language rs1-select2">
-						<select class="selection-1" name="time">
-							<option>USD</option>
-							<option>EUR</option>
-						</select>
-					</div>
-				</div>
-			</div>
-
-			<div class="wrap_header">
-				<!-- Logo -->
-				<a href="index.html" class="logo">
-					<img src="images/icons/logo.png" alt="IMG-LOGO">
-				</a>
-
-				<!-- Menu -->
-				<div class="wrap_menu">
-					<nav class="menu">
-						<ul class="main_menu">
-							<li>
-								<a href="index.html">Home</a>
-								<ul class="sub_menu">
-									<li><a href="index.html">Homepage V1</a></li>
-									<li><a href="home-02.html">Homepage V2</a></li>
-									<li><a href="home-03.html">Homepage V3</a></li>
-								</ul>
-							</li>
-
-							<li>
-								<a href="product.php">Shop</a>
-							</li>
-
-							<li class="sale-noti">
-								<a href="product.html">Sale</a>
-							</li>
-
-							<li>
-								<a href="cart.html">Features</a>
-							</li>
-
-							<li>
-								<a href="blog.html">Blog</a>
-							</li>
-
-							<li>
-								<a href="about.html">About</a>
-							</li>
-
-							<li>
-								<a href="contact.php">Contact</a>
-							</li>
-
-							<li>
-								<a href="usercad.php">Cadastro</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
-
-				<!-- Header Icon -->
-				<div class="header-icons">
-				<?php
-				
-				include "conexao.inc";
-				error_reporting(0);
-				if ($_SESSION['id']) {
-
-					$s = "SELECT * FROM users WHERE id = '".$_SESSION['id']."'";
-					$query = mysqli_query($con,$s);
-						while($foto = mysqli_fetch_assoc($query)){ 
-						echo '
-						<a href="login.php?a=deslogar" class="header-wrapicon1 dis-block">
-						Deslogar |   
-						</a>
-							<a href="#" class="header-wrapicon1 dis-block">
-							| <img src="usuarios/'.$foto['foto'].'" class="header-icon1" alt="ICON">
-							</a>
-
-
-							';
-						}
-				}else{
-					echo '
-					<a href="login.php" class="header-wrapicon1 dis-block">
-						Login |   
-					</a>
-
-					<a href="#" class="header-wrapicon1 dis-block">
-						| <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
-
-					';
-				}
-				?>
-				
-					
-					<span class="linedivide1"></span>
-
-					<div class="header-wrapicon2">
-						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti">0</span>
-
-						<!-- Header cart noti -->
-						<div class="header-cart header-dropdown">
-							<ul class="header-cart-wrapitem">
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-01.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											White Shirt With Pleat Detail Back
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $19.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-02.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Converse All Star Hi Black Canvas
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-03.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Nixon Porter Leather Watch In Tan
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $17.00
-										</span>
-									</div>
-								</li>
-							</ul>
-
-							<div class="header-cart-total">
-								Total: $75.00
-							</div>
-
-							<div class="header-cart-buttons">
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										View Cart
-									</a>
-								</div>
-
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Check Out
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Header Mobile -->
-		<div class="wrap_header_mobile">
-			<!-- Logo moblie -->
-			<a href="index.html" class="logo-mobile">
-				<img src="images/icons/logo.png" alt="IMG-LOGO">
-			</a>
-
-			<!-- Button show menu -->
-			<div class="btn-show-menu">
-				<!-- Header Icon mobile -->
-				<div class="header-icons-mobile">
-					<a href="#" class="header-wrapicon1 dis-block">
-						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
-
-					<span class="linedivide2"></span>
-
-					<div class="header-wrapicon2">
-						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti">0</span>
-
-						<!-- Header cart noti -->
-						<div class="header-cart header-dropdown">
-							<ul class="header-cart-wrapitem">
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-01.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											White Shirt With Pleat Detail Back
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $19.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-02.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Converse All Star Hi Black Canvas
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-03.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Nixon Porter Leather Watch In Tan
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $17.00
-										</span>
-									</div>
-								</li>
-							</ul>
-
-							<div class="header-cart-total">
-								Total: $75.00
-							</div>
-
-							<div class="header-cart-buttons">
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										View Cart
-									</a>
-								</div>
-
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Check Out
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
-					<span class="hamburger-box">
-						<span class="hamburger-inner"></span>
-					</span>
-				</div>
-			</div>
-		</div>
-
-		<!-- Menu Mobile -->
-		<div class="wrap-side-menu" >
-			<nav class="side-menu">
-				<ul class="main-menu">
-					<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
-						<span class="topbar-child1">
-							Free shipping for standard order over $100
-						</span>
-					</li>
-
-					<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
-						<div class="topbar-child2-mobile">
-							<span class="topbar-email">
-								fashe@example.com
-							</span>
-
-							<div class="topbar-language rs1-select2">
-								<select class="selection-1" name="time">
-									<option>USD</option>
-									<option>EUR</option>
-								</select>
-							</div>
-						</div>
-					</li>
-
-					<li class="item-topbar-mobile p-l-10">
-						<div class="topbar-social-mobile">
-							<a href="#" class="topbar-social-item fa fa-facebook"></a>
-							<a href="#" class="topbar-social-item fa fa-instagram"></a>
-							<a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
-							<a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
-							<a href="#" class="topbar-social-item fa fa-youtube-play"></a>
-						</div>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="index.html">Home</a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Homepage V1</a></li>
-							<li><a href="home-02.html">Homepage V2</a></li>
-							<li><a href="home-03.html">Homepage V3</a></li>
-						</ul>
-						<i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="product.html">Shop</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="product.html">Sale</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="cart.html">Features</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="blog.html">Blog</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="about.html">About</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="contact.html">Contact</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</header>
+<?php include "menuloja.php"?>
 
 	<!-- Title Page -->
-	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(images/heading-pages-02.jpg);">
+	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(images/heading-pages-002.jpg);">
 		<h2 class="l-text2 t-center">
-			Mulheres
-
+			Women
 		</h2>
 		<p class="m-text13 t-center">
-			Recém-chegados mulheres coleção 2018
+			New Arrivals Women Collection 2018
 		</p>
 	</section>
 
@@ -434,33 +120,66 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
 					<div class="leftbar p-r-20 p-r-0-sm">
 						<!--  -->
-
-					<form method="GET">
-						<!--  -->
-						<h4 class="m-text14 p-b-32">
-							Filtros
+						<h4 class="m-text14 p-b-7">
+							Filtrar por categoria
 						</h4>
-						<a href="product.php">Ver tudo</a>
+
+						<ul class="p-b-54">
+							<li class="p-t-4">
+								<a href="product.php?pagina=1" class="s-text13 active1">
+									TODOS
+								</a>
+							</li>
+							<!-- Busca categorias -->
+							<?php 
+
+								$sql_busca_categorias = "SELECT * FROM categoria";
+								$query_busca_categorias = mysqli_query($con, $sql_busca_categorias);
+
+								while ($dados_busca_categorias = mysqli_fetch_assoc($query_busca_categorias)) {
+
+									echo '<li class="p-t-4">
+										<a href="?filtra='.$dados_busca_categorias['id'].'" class="s-text13">
+											'.$dados_busca_categorias['nome'].'
+										</a>
+									</li>';
+								    
+								}
+
+							?>							
+							
+						</ul>
+
+						<!--  -->
+						<!--<h4 class="m-text14 p-b-32">
+							Filters
+						</h4>
 
 						<div class="filter-price p-t-22 p-b-50 bo3">
-							
+							<div class="m-text15 p-b-17">
+								Price
+							</div>
+
+							<div class="wra-filter-bar">
+								<div id="filter-bar"></div>
+							</div>
 
 							<div class="flex-sb-m flex-w p-t-16">
 								<div class="w-size11">
-									<!-- Button -->
-									<input value="Filter" type="submit" name="" class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
-										
+									<button class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
+										Filter
 									</button>
 								</div>
 
-								
+								<div class="s-text3 p-t-10 p-b-10">
+									Range: $<span id="value-lower">610</span> - $<span id="value-upper">980</span>
+								</div>
 							</div>
-						</div>
+						</div>-->
 
 						<div class="filter-color p-t-22 p-b-50 bo3">
 							<div class="m-text15 p-b-12">
-								Cor
-
+								Color
 							</div>
 
 							<ul class="flex-w">
@@ -501,17 +220,50 @@
 							</ul>
 						</div>
 
-						<div class="search-product pos-relative bo4 of-hidden">
-			
-							
-							
-							<input list="data" id="procura" class="s-text7 size6 p-l-23 p-r-50" type="text" name="search" placeholder="Search Products...">
-							
-						
+						<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+						<script>
+					        $(document).ready(function(){
 
-							<button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
-								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
-							</button>
+					            $('#search-product').keyup(function(){
+
+					                $('#form').submit(function(){
+
+					                    var dados = $(this).serialize();
+
+					                    $.ajax({
+
+					                        url: 'processa.php',
+					                        type: 'POST',
+					                        dataType: 'html',
+					                        data: dados,
+					                        success: function(data){
+
+					                            $('#resultado').empty().html(data);
+
+					                        }
+
+					                    });
+
+					                    return false;
+
+					                });
+
+					                $('#form').trigger('submit');
+
+					            });
+
+
+					        });
+					    </script>
+
+						<div class="search-product pos-relative bo4 of-hidden">
+							<form id="form">
+								<input class="s-text7 size6 p-l-23 p-r-50" type="text" id="search-product" name="search-product" placeholder="Search Products...">
+
+								<!--<button type="submit" class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
+									<i class="fs-12 fa fa-search" aria-hidden="true"></i>
+								</button>-->
+							</form>
 						</div>
 					</div>
 				</div>
@@ -520,265 +272,181 @@
 					<!--  -->
 					<div class="flex-sb-m flex-w p-b-35">
 						<div class="flex-w">
-							
+							<script>
+								function FiltrarPorOndemDePreco(){
+
+									var ordem = document.getElementById('ordem_preco').value;
+
+									location.href = 'product.php?pagina=1&ordem='+ordem;
+
+								}
+							</script>
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-								
-								<select class="selection-2" name="tipo">									
-									<option value="1">Popularity</option>
-									<option value="2">Price: low to high</option>
-									<option value="3">Price: high to low</option>
+								<select class="selection-2" name="sorting" id="ordem_preco" onchange="FiltrarPorOndemDePreco()">
+									<option>Default Sorting</option>
+									<option>Popularity</option>
+									<option value="DESC">Price: low to high</option>
+									<option value="ASC">Price: high to low</option>
 								</select>
 							</div>
-							
+
+							<script>
+								function FiltrarPorValor(){
+
+									var valor = document.getElementById('valor').value;
+
+									min = parseInt(valor);
+
+									if (valor < 200) {
+
+										var max = min + 50;
+										location.href = 'product.php?pagina=1&min='+min+'&max='+max;
+
+									} else {
+
+										location.href = 'product.php?pagina=1&min='+min;
+
+									}
+
+								}
+							</script>
+
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-								
-								<select class="selection-2" name="preco">
-									
-									<option value="1">$0.00 - $50.00</option>
-									<option value="2">$50.00 - $100.00</option>
-									<option value="3">$100.00 - $150.00</option>
-									<option value="4">$150.00 - $200.00</option>
-									<option value="5">$200.00+</option>
-	
-								</select>
-							</div>
-							
-						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-								
-								<select class="selection-2" name="id">
-									
-							<?php
-							include "conexao.inc";
-							$sql = "SELECT * FROM categoria";
-							$query = mysqli_query($con,$sql);
-							while ($r = mysqli_fetch_assoc($query)) {
-								echo '
-								<option value="'.$r['id'].'"">'.$r['nome'].'</option>
-							';
-							}
-							?>
-						
+								<select class="selection-2" name="sorting" onchange="FiltrarPorValor()" id="valor">
+									<option>Price</option>
+									<option value="0">R$ 0.00 - R$ 50.00</option>
+									<option value="50">R$ 50.00 - R$ 100.00</option>
+									<option value="100">R$ 100.00 - R$ 150.00</option>
+									<option value="150">R$ 150.00 - R$ 200.00</option>
+									<option value="200">R$ 200.00+</option>
 
-
-	
 								</select>
 							</div>
 						</div>
 
-
-						<span class="s-text8 p-t-5 p-b-5">
-							Mostrando 1–12 de 16 resultados
-						</span>
+						<!--<span class="s-text8 p-t-5 p-b-5">
+							Showing 1–12 of 16 results
+						</span>-->
 					</div>
-					</form>
 
-					<div class="row"> 
-					<?php
+					<!-- Product -->
+					<div class="row" id="resultado">
+						<?php 
 
+							//Paginacao
+							$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+							$limite = 6;
 
-							include "conexao.inc";
-							if(isset($_GET['id']) && isset($_GET['tipo']) && isset($_GET['preco']) && isset($_GET['search'])){
-							if ($_GET['search'] == "") {
-								$valI = '';
-								$valF = '';
-								echo '<script type="text/javascript">
-								alert("Procurando");
-								</script>';
+							$sqlT = "SELECT * FROM produtos";
+							$queryT= mysqli_query($con, $sqlT);
+							$total = mysqli_num_rows($queryT);
 
-								if ($_GET['preco'] == '1') {
-									$valI = '0';
-									$valF = '50';
-								}elseif ($_GET['preco'] == '2') {
-									$valI = '50';
-									$valF = '100';
-								}elseif ($_GET['preco'] == '3') {
-									$valI = '100';
-									$valF = '150';
-								}elseif ($_GET['preco'] == '4') {
-									$valI = '150';
-									$valF = '200';
-								}else{
-									$valI = '200';
-									$valF = '1000';
-								}
+							$numPagina = ceil($total/$limite);
+							$inicio = $pagina - 1;
+							$inicio = ($inicio*$numPagina);
 
-							$sql = "SELECT * FROM produtos WHERE id_cat = '".$_GET['id']."' AND preco BETWEEN ".$valI." AND ".$valF. " ORDER BY preco ASC";
-							$query = mysqli_query($con,$sql);
-							while ($r = mysqli_fetch_assoc($query)) {
-								$sqll = "SELECT * FROM foto WHERE id_produto = '".$r['id']."'";
-								$queryy = mysqli_query($con,$sqll);
-								while ($rr = mysqli_fetch_assoc($queryy)) {
-									echo '
-						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
-							<!-- Block2 -->
-							<div class="block2">
-								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="admin/imgs/'.$rr['img1'].'" alt="IMG-PRODUCT">
+							$where = " LIMIT $inicio, $limite";
+														
 
-									<div class="block2-overlay trans-0-4">
-										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-										</a>
-
-										<div class="block2-btn-addcart w-size1 trans-0-4">
-											<!-- Button -->
-											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-												Add to Cart
-											</button>
-										</div>
-									</div>
-								</div>
-
-								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
-										'.$r['nome'].'
-									</a>
-
-									<span class="block2-price m-text6 p-r-5">
-										$'.$r['preco'].'
-									</span>
-								</div>
-							</div>
-						</div>
-
-									';
-								}
-							}
-
-
-	
-							}else{
-								$valI = '';
-								$valF = '';
-								echo '<script type="text/javascript">
-								alert("Procurando");
-								</script>';
-
-								if ($_GET['preco'] == '1') {
-									$valI = '0';
-									$valF = '50';
-								}elseif ($_GET['preco'] == '2') {
-									$valI = '50';
-									$valF = '100';
-								}elseif ($_GET['preco'] == '3') {
-									$valI = '100';
-									$valF = '150';
-								}elseif ($_GET['preco'] == '4') {
-									$valI = '150';
-									$valF = '200';
-								}else{
-									$valI = '200';
-									$valF = '1000';
-								}
+							if (isset($_GET['filtra'])) {
 								
-							$sql = "SELECT * FROM produtos WHERE id_cat = '".$_GET['id']."' AND preco BETWEEN ".$valI." AND ".$valF. " AND nome LIKE '%".$_GET['search']."%' ORDER BY nome ASC";
-							$query = mysqli_query($con,$sql);
-							while ($r = mysqli_fetch_assoc($query)) {
-								$sqll = "SELECT * FROM foto WHERE id_produto = '".$r['id']."'";
-								$queryy = mysqli_query($con,$sqll);
-								while ($rr = mysqli_fetch_assoc($queryy)) {
-									echo '
-						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
-							<!-- Block2 -->
-							<div class="block2">
-								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="admin/imgs/'.$rr['img1'].'" alt="IMG-PRODUCT">
+								$where = " WHERE id_cat = '".$_GET['filtra']."'";
 
-									<div class="block2-overlay trans-0-4">
-										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-										</a>
+							} elseif (isset($_GET['min']) && isset($_GET['max'])) {
+								
+								$where = " WHERE preco >= ".$_GET['min']." AND preco <= ".$_GET['max'];
 
-										<div class="block2-btn-addcart w-size1 trans-0-4">
-											<!-- Button -->
-											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-												Add to Cart
-											</button>
+							} elseif (isset($_GET['min'])) {
+								
+								$where = " WHERE preco >= ".$_GET['min'];
+
+							} elseif (isset($_GET['ordem'])) {
+								
+								$where = " ORDER BY preco ".$_GET['ordem'];
+
+							}
+
+							$slq_busca_produtos = "SELECT * FROM produtos".$where;
+							$query_busca_produtos = mysqli_query($con, $slq_busca_produtos);
+							$rows = mysqli_num_rows($query_busca_produtos);
+
+							if (mysqli_num_rows($query_busca_produtos) > 0) {
+
+								while ($dados_busca_produtos = mysqli_fetch_assoc($query_busca_produtos)) {
+
+									//$img = explode("-", $dados_busca_produtos['url_img']);
+
+									$sql = "SELECT * FROM foto WHERE id_produto = '".$dados_busca_produtos['id']."'";
+									$query = mysqli_query($con,$sql);
+									while ($dados = mysqli_fetch_assoc($query)) {
+										echo '<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
+										<!-- Block2 -->
+										<div class="block2">
+											<div class="block2-img wrap-pic-w of-hidden pos-relative">
+												<img style="width: 270px; height: 300px;" src="admin/imgs/'.$dados['img1'].'" alt="IMG-PRODUCT">
+
+												<div class="block2-overlay trans-0-4">
+													<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
+														<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+														<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+													</a>
+
+													<div class="block2-btn-addcart w-size1 trans-0-4">
+														<!-- Button -->
+														<a class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4" href="?acao=add&id='.$dados_busca_produtos['id'].'">
+															Add to Cart
+														</a>
+													</div>
+												</div>
+											</div>
+
+											<div class="block2-txt p-t-20">
+												<a href="product-detail.php?id='.$dados_busca_produtos['id'].'" class="block2-name dis-block s-text3 p-b-5">
+													'.$dados_busca_produtos['nome'].'
+												</a>
+
+												<span class="block2-price m-text6 p-r-5">
+													R$ '.number_format($dados_busca_produtos['preco'], 2, ',', '.').'
+												</span>
+											</div>
 										</div>
-									</div>
-								</div>
-
-								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
-										'.$r['nome'].'
-									</a>
-
-									<span class="block2-price m-text6 p-r-5">
-										$'.$r['preco'].'
-									</span>
-								</div>
-							</div>
-						</div>
-
-									';
-								}
-							}
-							}
-
-
-
-							}else{
-							$sql = "SELECT * FROM produtos ORDER BY nome ASC";
-							$query = mysqli_query($con,$sql);
-							while ($r = mysqli_fetch_assoc($query)) {
-								$sqll = "SELECT * FROM foto WHERE id_produto = '".$r['id']."'  ";
-								$queryy = mysqli_query($con,$sqll);
-								while ($rr = mysqli_fetch_assoc($queryy)) {
-									echo '
-						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
-							<!-- Block2 -->
-							<div class="block2">
-								<div class="block2-img wrap-pic-w of-hidden pos-relative">
-									<img src="admin/imgs/'.$rr['img1'].'" alt="IMG-PRODUCT">
-
-									<div class="block2-overlay trans-0-4">
-										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-										</a>
-
-										<div class="block2-btn-addcart w-size1 trans-0-4">
-											<!-- Button -->
-											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-												Add to Cart
-											</button>
-										</div>
-									</div>
-								</div>
-
-								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
-										'.$r['nome'].'
-									</a>
-
-									<span class="block2-price m-text6 p-r-5">
-										$'.$r['preco'].'
-									</span>
-								</div>
-							</div>
-						</div>
-
-									';
-								}
-
-							}
-							}
-							
-							?>
-							</div>
+									</div>';
+									}
 									
-		
+									
 
+								}
+
+							} else {
+
+								echo '<h3>Nenhum produto encontrado</h3>';
+
+							}
+
+
+				
+						?>
+						
 						
 
-					<!-- Pagination -->
+				</div>
+				<div class="pull-right"><?php echo mysqli_num_rows($query_busca_produtos)." resultado(s)"; ?></div>
+				<!-- Pagination -->
 					<div class="pagination flex-m flex-w p-t-26">
+					<?php 
+						for ($i=1; $i <= $numPagina ; $i++) {
+							if ($_GET['pagina'] == $i) { 
+								echo '<a href="?pagina='.$i.'" class="item-pagination flex-c-m trans-0-4 active-pagination">'.$i.'</a>';
+							} else {
+								echo '<a href="?pagina='.$i.'" class="item-pagination flex-c-m trans-0-4">'.$i.'</a>';
+							}
+						}
+					?>
+					</div>
+					<!--<div class="pagination flex-m flex-w p-t-26">
 						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
 						<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
-					</div>
-				</div>
+					</div>-->
 			</div>
 		</div>
 	</section>
@@ -813,29 +481,28 @@
 				</h4>
 
 				<ul>
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Men
+					<!--<li class="p-b-9">
+						<a href="product.php" class="s-text13 active1">
+							TODOS
 						</a>
-					</li>
+					</li>-->
+					<!-- Busca categorias -->
+					<?php 
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Women
-						</a>
-					</li>
+						$sql_busca_categorias = "SELECT * FROM categoria LIMIT 5";
+						$query_busca_categorias = mysqli_query($conexao, $sql_busca_categorias);
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Dresses
-						</a>
-					</li>
+						while ($dados_busca_categorias = mysqli_fetch_assoc($query_busca_categorias)) {
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Sunglasses
-						</a>
-					</li>
+							echo '<li class="p-b-9">
+								<a href="?filtra='.$dados_busca_categorias['id'].'" class="s-text7">
+									'.$dados_busca_categorias['nome'].'
+								</a>
+							</li>';
+								    
+						}
+
+					?>	
 				</ul>
 			</div>
 
@@ -947,7 +614,7 @@
 			</a>
 
 			<div class="t-center s-text8 p-t-20">
-				Copyright © 2018 All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+				NeoCopyright © 2018 All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 			</div>
 		</div>
 	</footer>
@@ -961,8 +628,10 @@
 		</span>
 	</div>
 
-	<!-- Container Selection1 -->
+	<!-- Container Selection -->
 	<div id="dropDownSelect1"></div>
+	<div id="dropDownSelect2"></div>
+
 
 
 <!--===============================================================================================-->
