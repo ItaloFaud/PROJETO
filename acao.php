@@ -69,6 +69,30 @@ header('location: cart.php?frete='.$val->Valor.'&prazo='.$val->PrazoEntrega	);
 header('location:cart.php');
 }
 
+if(isset($_GET['email1'])){
+    include "conexao.inc";
+
+    session_start();
+    if (isset($_GET['email1'])) {
+        $sql_logar = "SELECT * FROM users WHERE email = '".$_GET['email1']."' AND senha = '".$_GET['senha1']."' ";
+        $query_logar = mysqli_query($con,$sql_logar);
+        if (mysqli_num_rows($query_logar) > 0) {
+            while($pessoa =  mysqli_fetch_assoc($query_logar)){
+                echo '
+<script type="text/javascript">
+    alert("Bem-vindo "'.$pessoa['nome'].');
+    location.href = "index.php";
+</script>
+            ';
+            }
+            
+            
+        }
+    }else{
+
+    }
+}
+
 
 
 

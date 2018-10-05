@@ -49,12 +49,12 @@
 							</li>
 
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="login.php">Login e Cadastro</a>
 							</li>
 
-							<li>
+							<!-- <li>
 								<a href="about.html">About</a>
-							</li>
+							</li> -->
 
 							<li>
 								<a href="contact.html">Contact</a>
@@ -73,8 +73,14 @@
 
 					<div class="header-wrapicon2">
 						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti"><?php 
-							echo count($_SESSION['carrinho']);
+						<span class="header-icons-noti"><?php
+							if (isset($_SESSION['carrinho'])) {
+							 	# code...
+							 	echo count($_SESSION['carrinho']);
+							 }else{
+							 	echo "0";
+							 } 
+							
 						?></span>
 
 						<!-- Header cart noti -->
