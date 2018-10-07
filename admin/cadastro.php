@@ -1,11 +1,11 @@
 <?php
 	include "conexao.inc";
 	if (isset($_POST['nome'])) {
-		$sqlcat = "SELECT * FROM categoria WHERE nome = '".$_POST['select']."'";
+		$sqlcat = "SELECT * FROM categoria WHERE id = '".$_POST['select']."'";
 		$querycat = mysqli_query($con,$sqlcat);
 		if ($querycat) {
 			while ($idcat =  mysqli_fetch_assoc($querycat)) {
-	 	 	$sqlpro = "INSERT INTO produtos VALUES (DEFAULT,'".$idcat['id']."','".$_POST['nome']."','".$_POST['infos']."','".$_POST['preco']."')";
+	 	 	$sqlpro = "INSERT INTO produtos VALUES (DEFAULT,'".$idcat['id']."','".$_POST['nome']."','".$_POST['cor']."','".$_POST['qtn']."','".$_POST['select2']."','".$_POST['infos']."','".$_POST['preco']."')";
 	 	 	$querypro = mysqli_query($con,$sqlpro);
 	 	 	if ($querypro) {
 	 	 		$sqlid = "SELECT LAST_INSERT_ID()";
@@ -117,10 +117,30 @@
     	    <label for="pass">Informações adicionais</label>
     	    <textarea cols="7" rows="8" name="infos" class="form-control" placeholder="Escreva aqui!"></textarea>
     	  </div>
-    	  <div class="form-group">
+    	 
+        <div class="form-group">
     	    <label for="pass">Preco</label>
-    	    <input name="preco" step="0.99" type="number" class="form-control" placeholder="Preço aqui"></textarea>
+    	    <input name="preco" step="0.99" type="number" class="form-control" placeholder="Preço aqui">
     	  </div>
+
+        <div class="form-group">
+          <label for="pass">Quantidade</label>
+          <input name="qtn" step="1" type="number" class="form-control" placeholder="Quantidade do produto em unidades">
+        </div>
+
+        <div class="form-group">
+          <label for="pass">Cor</label>
+          <input name="cor" type="text" class="form-control" placeholder="Cor do produto">
+        </div>
+        <div class="form-group">
+          <label for="Select">Tamanho</label>
+          <select name="select2" class="form-control" id="Select">
+            <option>G</option>
+            <option>M</option>
+            <option>P</option>
+          </select>
+        </div>
+
     	  <div class="form-group">
     	    <label for="Select">Categoria</label>
     	    <select name="select" class="form-control" id="Select">
@@ -130,13 +150,14 @@
     	      	$query = mysqli_query($con,$sql);
 
     	      	while ($r = mysqli_fetch_assoc($query)) {
-    	      		echo '<option>'.$r['nome'].'</option>';
+    	      		echo '<option value="'.$r['id'].'">'.$r['nome'].'</option>';
     	      	}
 
     	      ?>
 
     	    </select>
-    	  </div>
+
+          
     	  <div class="form-group">
     	    <label for="file">Adicione fotos</label>
     	    <small>Coloque pelo menos uma foto</small>

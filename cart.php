@@ -1,6 +1,6 @@
 <?php session_start(); 
 
-
+//error_reporting(0);
 
 
 ?>
@@ -36,6 +36,11 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+<script type="text/javascript">
+	function Confirma(){
+		location.href = "pedidos.php";
+	}
+</script>
 </head>
 <body class="animsition">
 <!-- 		<script type="text/javascript">
@@ -263,7 +268,7 @@
 					</span>
 
 					<span class="m-text21 w-size20 w-full-sm">
-						<?php echo 'R$:'.number_format(($total+ceil($_GET['frete'])),2,",","."); ?>
+						<?php $tot = ($total+ceil($_GET['frete'])); echo 'R$:'.number_format($tot,2,",","."); ?>
 					</span>
 				</div>
 

@@ -10,6 +10,7 @@ if (isset($_GET['a'])) {
 			if ($num > 0) {
 				while ($r = mysqli_fetch_assoc($query_logar)) {
 					$_SESSION['usuario_comum'] = $r['nome'];
+					$_SESSION['usuario_comum_id'] = $r['id'];
 					echo '
 <script type="text/javascript">
 	alert("Bem-Vindo '.$r['nome'].'");
@@ -54,7 +55,11 @@ if (isset($_GET['a'])) {
 					$query_cadastrar = mysqli_query($con,$sql_cadastrar);
 					if ($query_cadastrar) {
 						move_uploaded_file($_FILES['foto']['tmp_name'], "usuarios/".$_FILES['foto']['name']);
+						$sql_id = "SELECT LAST_INSERT_ID()";
+						$query_id = mysqli_query($con,$sql_id);
+						$id = mysqli_fetch_row($query_id);
 						$_SESSION['usuario_comum'] = $_POST['nome'];
+						$_SESSION['usuario_comum_id'] = $id[0];
 						
 
 						echo ' ooo

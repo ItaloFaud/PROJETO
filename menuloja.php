@@ -52,6 +52,10 @@
 								<a href="login.php">Login e Cadastro</a>
 							</li>
 
+							<li>
+								<a href="perfil.php">Perfil de Usuário</a>
+							</li>
+
 							<!-- <li>
 								<a href="about.html">About</a>
 							</li> -->
