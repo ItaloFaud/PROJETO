@@ -51,7 +51,7 @@ $val = (calcular_frete(
     $tipo));
  
 echo "Valor: R$ ".$val->Valor.'  '.$val->PrazoEntrega;
-header('location: cart.php?frete='.$val->Valor.'&prazo='.$val->PrazoEntrega	);
+header('location: cart.php?tipo='.$tipo.'&cep='.$cep.'&frete='.$val->Valor.'&prazo='.$val->PrazoEntrega	);
 }
 
 }else{

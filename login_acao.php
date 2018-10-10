@@ -22,7 +22,7 @@ if (isset($_GET['a'])) {
 			}else{
 			echo '
 <script type="text/javascript">
-	alert("Não há cadastro com esse email");
+	alert("Senha e/ou email incorretos!");
 	location.href = "login.php";
 </script>
 			';

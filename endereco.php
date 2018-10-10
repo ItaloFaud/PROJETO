@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Pedidos</title>
+	<title>Perfil</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
@@ -46,41 +46,45 @@
 </head>
 <body>
 
-
 <?php include "menuloja.php"?>
+
+
 
 <div class="container">
 	<br>
 	<br>
 	<div class="col-md-12">
-			<h3>Pedidos</h3>
-			<p class="lead">Veja aqui seus pedidos feitos e a situação deles</p>
+			<h3>Escolha o endereço a ser usado</h3>
+			<p class="lead">Envio efetuado pelo: <?php if ($_GET['tipo'] == '40010') {
+				echo "SEDEX";
+			}else{
+				echo "PAC";
+			} ?></p>
 	</div>
 	<br>
 	<br>
 	<div class="row">
 		<?php
 
-		$sql_pedidos = "SELECT * FROM fatura WHERE id_usuario = '".$_SESSION['usuario_comum_id']."'";
-		$query_pedidos = mysqli_query($con,$sql_pedidos);
+		$sql_end = "SELECT * FROM endereco WHERE id_usuario = '".$_SESSION['usuario_comum_id']."'";
+		$query_end = mysqli_query($con,$sql_end);
 		$i = 1;
-		$re = mysqli_num_rows($query_pedidos);
-		if ($re > 0) {
-			while ($results = mysqlI_fetch_assoc($query_pedidos)) {
+		$re = mysqli_num_rows($query_end);
+		while ($results = mysqlI_fetch_assoc($query_end)) {
 			if ($i <= $re) {
 				echo '
 
 		<div class="col-md-3">
 			<div class="card" style="width: 18rem;">
 				 <div class="card-header">
-				    <a class="badge badge-primary" href="detalhe_pedido.php?id_fatura='.$results['id'].'&id_endereco='.$results['id_endereco'].'&valor='.$results['valor'].'">Ver detalhes do pedido '.$i.'</a> 
+				    <a class="badge badge-primary" href="acao_confirma.php?action=calc_fim&cep='.$results['cep'].'&tipo='.$_GET['tipo'].'&id_end='.$results['id'].'&total='.$_GET['tot'].'"> Endereço '.$i.'</a> 
 				 </div>
 				 <ul class="list-group list-group-flush">
-				    <li class="list-group-item">Valor: R$'.$results['valor'].',00</li>
-				    <li class="list-group-item">Código do pedido: #00'.$results['id'].'</li>
-				   
-				    
-				    
+				    <li class="list-group-item">CEP: '.$results['cep'].'</li>
+				    <li class="list-group-item">Estado: '.$results['estado'].'</li>
+				    <li class="list-group-item">Cidade: '.$results['cidade'].'</li>
+				    <li class="list-group-item">Rua/Avenida: '.$results['rua'].'</li>
+				    <li class="list-group-item">Número: '.$results['numero'].'</li>
 				 </ul>
 			</div> 
 		</div>		
@@ -88,20 +92,19 @@
 				';
 				$i++;
 			}
-		}	
-		}else{
-			echo '
-				<div class="col-md-12"><br><br><p class="lead">Você não tem pedidos</p><br><br></div>
-			';
 		}
-		
 
 		?>
+		
+
 
 	</div>
+
 	<br>
 	<br>
+
 </div>
+
 
 
 

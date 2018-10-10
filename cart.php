@@ -37,9 +37,39 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 <script type="text/javascript">
-	function Confirma(){
+	function Confire(){
 		location.href = "pedidos.php";
 	}
+
+	function certeza(frete) {
+		if (frete != '') {
+			$("#modalrei").modal('show');
+		}else{
+			alert("Você não definiu o destino");
+		}
+		
+	}
+
+	function pedir(total) {
+		
+		
+		var frete = "<?php echo $_GET['frete']?>";
+		var prazo = "<?php echo $_GET['prazo']?>";
+		var cep = "<?php echo $_GET['cep']?>";
+		var tipo = "<?php echo $_GET['tipo']?>";
+		if (frete != "" && prazo != "" && cep != "" && tipo != ""){
+			location.href = "endereco.php?tot="+total+"&frete="+frete+"&prazo="+prazo+"&cep="+cep+"&tipo="+tipo;
+		}else{
+			alert("Você não está logado");
+		}
+		
+		
+
+
+	
+		
+	}
+
 </script>
 </head>
 <body class="animsition">
@@ -89,47 +119,57 @@
 						
 						$total = 0;
 
-						foreach ($_SESSION['carrinho'] as $id => $qnt) {
-						$sqlcar = "SELECT * FROM produtos WHERE id = '$id'";
-						$querycar = mysqli_query($con,$sqlcar);
-						$prods = mysqli_fetch_assoc($querycar);
+						if ($_SESSION['carrinho']) {
+							foreach ($_SESSION['carrinho'] as $id => $qnt) {
+							$sqlcar = "SELECT * FROM produtos WHERE id = '$id'";
+							$querycar = mysqli_query($con,$sqlcar);
+							$prods = mysqli_fetch_assoc($querycar);
 
-						$sqlfoto = "SELECT * FROM foto WHERE id_produto = '$id'";
-						$queryfoto = mysqli_query($con,$sqlfoto);
-						$fotos = mysqli_fetch_assoc($queryfoto);
+							$sqlfoto = "SELECT * FROM foto WHERE id_produto = '$id'";
+							$queryfoto = mysqli_query($con,$sqlfoto);
+							$fotos = mysqli_fetch_assoc($queryfoto);
 
-						$minitotal = ($qnt*$prods['preco']);
-						$total += $minitotal;
+							$minitotal = ($qnt*$prods['preco']);
+							$total += $minitotal;
 
-						echo '
-						<tr class="table-row">
-							<td class="column-1">
-								<div class="cart-img-product b-rad-4 o-f-hidden">
-									<img src="admin/imgs/'.$fotos['img1'].'" alt="IMG-PRODUCT">
-								</div>
-							</td>
-							<td class="column-2">'.$prods['nome'].'</td>
-							<td class="column-3">$'.number_format($prods['preco'],2,",",".").'</td>
-							<td class="column-4">
-								<div class="flex-w bo5 of-hidden w-size17">
-									<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-										<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-									</button>
+							echo '
+							<tr class="table-row">
+								<td class="column-1">
+									<div class="cart-img-product b-rad-4 o-f-hidden">
+										<img src="admin/imgs/'.$fotos['img1'].'" alt="IMG-PRODUCT">
+									</div>
+								</td>
+								<td class="column-2">'.$prods['nome'].'</td>
+								<td class="column-3">$'.number_format($prods['preco'],2,",",".").'</td>
+								<td class="column-4">
+									<div class="flex-w bo5 of-hidden w-size17">
+										<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
+											<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
+										</button>
 
-									<input class="size8 m-text18 t-center num-product" type="number" name="id'.$id.'" value="'.$qnt.'">
+										<input class="size8 m-text18 t-center num-product" type="number" name="id'.$id.'" value="'.$qnt.'">
 
-									<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-										<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-									</button>
-								</div>
-							</td>
-							<td class="column-5">$'.number_format($minitotal,2,",",".").'</td>
-						</tr>
-						';
+										<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
+											<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
+										</button>
+									</div>
+								</td>
+								<td class="column-5">$'.number_format($minitotal,2,",",".").'</td>
+							</tr>
+							';
 
 
 
+							}
+						}else{
+							echo '
+								<tr class="table-row">
+								<td class="column-1">Sem produtos no seu carrinho!</td>
+								</tr>
+							';
 						}
+
+						
 						?>
 
 
@@ -138,18 +178,18 @@
 			</div>
 
 			<div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm">
-				<div class="flex-w flex-m w-full-sm">
+				<!-- <div class="flex-w flex-m w-full-sm">
 					<div class="size11 bo4 m-r-10">
 						<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="coupon-code" placeholder="Coupon Code">
 					</div>
 
 					<div class="size12 trans-0-4 m-t-10 m-b-10 m-r-10">
-						<!-- Button -->
-						<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+						 Button -->
+						<!-- <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
 							Apply coupon
 						</button>
 					</div>
-				</div>
+				</div> --> 
 
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
@@ -208,12 +248,12 @@
 						<?php echo '<form method="post" action="acao.php?acao=calc&preco='.$total.' ">'?>
 						
 						<div class="size13 bo4 m-b-22">
-							<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="cep" placeholder="CEP">
+							<input id="cep" class="sizefull s-text7 p-l-15 p-r-15" type="text" name="cep" placeholder="CEP">
 						</div>
 						<small>Tipo de Frete</small>
 						<div class="rs2-select2 rs3-select2 rs4-select2 bo4 of-hidden w-size21 m-t-8 m-b-12">
 							
-							<select class="selection-2" name="tipo">							
+							<select id="tipo" class="selection-2" name="tipo">							
 								<option value="41106">PAC</option>
 								<option value="40010">Sedex</option>
 							</select>
@@ -232,7 +272,7 @@
 						Frete:
 					</span>
 
-					<span class="m-text21 w-size20 w-full-sm">
+					<span id="frete" class="m-text21 w-size20 w-full-sm">
 						<?php
 						if (isset($_GET['frete'])) {
 							echo "R$:".number_format(ceil($_GET['frete']),2,",",".");
@@ -249,7 +289,7 @@
 						Prazo:
 					</span>
 
-					<span class="m-text21 w-size20 w-full-sm">
+					<span id="prazo" class="m-text21 w-size20 w-full-sm">
 						<?php
 						if (isset($_GET['prazo'])) {
 							echo $_GET['prazo']." dias";
@@ -268,15 +308,39 @@
 					</span>
 
 					<span class="m-text21 w-size20 w-full-sm">
-						<?php $tot = ($total+ceil($_GET['frete'])); echo 'R$:'.number_format($tot,2,",","."); ?>
+						<?php $tot = (ceil($total)+ceil($_GET['frete'])); echo 'R$:'.number_format($tot,2,",","."); ?>
 					</span>
 				</div>
 
 				<div class="size15 trans-0-4">
 					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-						Proceed to Checkout
+					<button onclick="certeza(<?php echo $_GET['frete']?>	)" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+						Finalizar Compra
 					</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalrei" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Finalizar compra</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="lead">Tem certeza?</p>
+      </div>
+      <div class="modal-footer">
+      	<button onclick="pedir(<?php echo number_format($total,2,",","."); ?>)" type="button" class="btn btn-primary">Sim</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
 				</div>
 			</div>
 		</div>

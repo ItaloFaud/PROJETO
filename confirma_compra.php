@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Pedidos</title>
+	<title>Perfil</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
@@ -46,62 +46,171 @@
 </head>
 <body>
 
-
 <?php include "menuloja.php"?>
-
 <div class="container">
 	<br>
 	<br>
 	<div class="col-md-12">
-			<h3>Pedidos</h3>
-			<p class="lead">Veja aqui seus pedidos feitos e a situação deles</p>
+			<h3>Resumo do Pedido</h3>
+			
 	</div>
-	<br>
-	<br>
-	<div class="row">
+<!-- Cart -->
+	<section class="cart bgwhite p-t-70 p-b-100">
+		<div class="container">
+			<!-- Cart item -->
+			<div class="container-table-cart pos-relative">
+				<div class="wrap-table-shopping-cart bgwhite">
+					<form method="get" action="acao.php">
+					<table class="table-shopping-cart">
+						<tr class="table-head">
+							<th class="column-1"></th>
+							<th class="column-2">Product</th>
+							<th class="column-3">Price</th>
+							<th class="column-4 p-l-70">Quantity</th>
+							<th class="column-5">Total</th>
+						</tr>
+
+						<?php
+						include "conexao.inc";
+						
+						$total = 0;
+
+						foreach ($_SESSION['carrinho'] as $id => $qnt) {
+						$sqlcar = "SELECT * FROM produtos WHERE id = '$id'";
+						$querycar = mysqli_query($con,$sqlcar);
+						$prods = mysqli_fetch_assoc($querycar);
+
+						$sqlfoto = "SELECT * FROM foto WHERE id_produto = '$id'";
+						$queryfoto = mysqli_query($con,$sqlfoto);
+						$fotos = mysqli_fetch_assoc($queryfoto);
+
+						$minitotal = ($qnt*$prods['preco']);
+						$total += $minitotal;
+
+						echo '
+						<tr class="table-row">
+							<td class="column-1">
+								<div class="cart-img-product b-rad-4 o-f-hidden">
+									<img src="admin/imgs/'.$fotos['img1'].'" alt="IMG-PRODUCT">
+								</div>
+							</td>
+							<td class="column-2">'.$prods['nome'].'</td>
+							<td class="column-3">$'.number_format($prods['preco'],2,",",".").'</td>
+							<td class="column-4">
+								<div class="flex-w bo5 of-hidden w-size17">
+									
+
+									<input disabled class="size22 m-text18 t-center num-product" type="number" name="id'.$id.'" value="'.$qnt.'">
+
+									
+								</div>
+							</td>
+							<td class="column-5">$'.number_format($minitotal,2,",",".").'</td>
+						</tr>
+						';
+
+
+
+						}
+						?>
+
+
+
+
+					</table>
+				</div>
+			</div>
+			<br>
+			<div class="row">
 		<?php
 
-		$sql_pedidos = "SELECT * FROM fatura WHERE id_usuario = '".$_SESSION['usuario_comum_id']."'";
-		$query_pedidos = mysqli_query($con,$sql_pedidos);
+		$sql_end = "SELECT * FROM endereco WHERE id = '".$_GET['id_end']."'";
+		$query_end = mysqli_query($con,$sql_end);
 		$i = 1;
-		$re = mysqli_num_rows($query_pedidos);
-		if ($re > 0) {
-			while ($results = mysqlI_fetch_assoc($query_pedidos)) {
-			if ($i <= $re) {
+		$re = mysqli_num_rows($query_end);
+		while ($results = mysqlI_fetch_assoc($query_end)) {
+			
 				echo '
 
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<div class="card" style="width: 18rem;">
 				 <div class="card-header">
-				    <a class="badge badge-primary" href="detalhe_pedido.php?id_fatura='.$results['id'].'&id_endereco='.$results['id_endereco'].'&valor='.$results['valor'].'">Ver detalhes do pedido '.$i.'</a> 
+				    <a class="badge badge-primary" href="">Endereço de entrega</a> 
 				 </div>
 				 <ul class="list-group list-group-flush">
-				    <li class="list-group-item">Valor: R$'.$results['valor'].',00</li>
-				    <li class="list-group-item">Código do pedido: #00'.$results['id'].'</li>
-				   
-				    
-				    
+				    <li class="list-group-item">CEP: '.$results['cep'].'</li>
+				    <li class="list-group-item">Estado: '.$results['estado'].'</li>
+				    <li class="list-group-item">Cidade: '.$results['cidade'].'</li>
+				    <li class="list-group-item">Rua/Avenida: '.$results['rua'].'</li>
+				    <li class="list-group-item">Número: '.$results['numero'].'</li>
 				 </ul>
 			</div> 
 		</div>		
 
 				';
-				$i++;
-			}
-		}	
-		}else{
-			echo '
-				<div class="col-md-12"><br><br><p class="lead">Você não tem pedidos</p><br><br></div>
-			';
+				
+			
 		}
-		
-
+		error_reporting(0);
+		$valor = number_format(ceil($_GET['frete']),2,",",".");
+		$Subtotalll = $total+$valor;
 		?>
 
-	</div>
-	<br>
-	<br>
+		<div class="col-md-4">
+			<div class="card" style="width: 18rem;">
+				 <div class="card-header">
+				    <a class="badge badge-warning" href="">Informações da compra</a> 
+				 </div>
+				 <ul class="list-group list-group-flush">
+				    <li class="list-group-item">Total: R$<?php echo $total; ?> </li>
+				    <li class="list-group-item">Frete: R$<?php echo number_format(ceil($_GET['frete']),2,",","."); ?></li>
+				    <li class="list-group-item">Prazo de Entrega: <?php echo $_GET['prazo']; ?> dias</li>
+				    <li class="list-group-item">Subtotal: R$<?php echo $Subtotalll; ?></li>
+				    
+				 </ul>
+			</div> 
+		</div>
+
+		<div class="col-md-4">
+			<div class="card" style="width: 18rem;">
+				 <div class="card-header">
+				    <a class="badge badge-success" href="">Confirmação de compra</a> 
+				 </div>
+				 <ul class="list-group list-group-flush">
+				    <li class="list-group-item">
+				    	<div class="size16 trans-0-4 m-t-10 m-b-10 m-r-10">
+						<!-- Button -->
+						
+							<a href="acao_confirma.php?action=confirma&frete=<?php echo $_GET['frete']; ?>&prazo=<?php echo $_GET['prazo']; ?>&valorTot=<?php echo $_GET['valorTot']; ?>&prazo=<?php echo $_GET['prazo']; ?>&id_end=<?php echo $_GET['id_end']; ?>" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+								Confirmar
+							</a>
+						</div>
+				    </li>
+				    <li class="list-group-item">
+				    	<div class="size16 trans-0-4 m-t-10 m-b-10 m-r-10">
+						<!-- Button -->
+							<a href="index.php" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+								Desistir
+							</a>
+						</div>
+				    </li>
+				 </ul>
+			</div> 
+		</div>
+
+		
+			
+
+			</div>
+			</div>
+		</div>
+	</section>
 </div>
+
+
+
+
+
 
 
 

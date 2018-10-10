@@ -232,21 +232,10 @@ if (isset($_POST['senhatu']) && $_POST['senhatu'] != "" && isset($_POST['novasen
 						}
 
 					echo "</div>";
-					}else{
-	echo '
-						
-	<div class="col-md-12 p-b-30">
-		<h4>Você não está logado!</h4>
-		<h6>Volte aqui quando estiver logado</h6>
-	</div>
-	</div>
-					';
-					}
-				?>
 
-		<?php
 
-			$sql_end = "SELECT * FROM endereco WHERE id_usuario = '".$_SESSION['usuario_comum_id']."'";
+
+					$sql_end = "SELECT * FROM endereco WHERE id_usuario = '".$_SESSION['usuario_comum_id']."'";
 					$query_end = mysqli_query($con,$sql_end);
 
 						if (mysqli_num_rows($query_end) > 0) {
@@ -414,13 +403,31 @@ if (isset($_POST['senhatu']) && $_POST['senhatu'] != "" && isset($_POST['novasen
 						
 						}
 
+					
+
+
+					}else{
+	echo '
+						
+	<div class="col-md-12 p-b-30">
+		<h4>Você não está logado!</h4>
+		<h6>Volte aqui quando estiver logado</h6>
+	</div>
+	</div>
+					';
+					}
+				?>
+
+		<?php
+
+			
+
 		?>
 			
 		</div>
 
 
 
-	<a href="" onclick=""></a>	
     
    
 	</section>

@@ -27,7 +27,7 @@ $queryins = mysqli_query($con,$sqlins);
 
 if ($query) {
 	#ini_set(varname, newvalue);
-	mail('italopirata06@gmail.com',$ass,$msg,'From:italopirata06@gmail.com');
+	mail('italopirata06@gmail.com',$ass,$msg,'From: italopirata06@gmail.com');
 
 	echo '<script type="text/javascript">
 	alert("Messagem Entregue!");
