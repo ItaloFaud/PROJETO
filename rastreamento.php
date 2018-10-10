@@ -13,5 +13,4 @@
     curl_close($ch);
     // Imprimir a saída
     echo $output;
-    echo utf8
 ?>

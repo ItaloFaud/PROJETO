@@ -27,16 +27,45 @@ $queryins = mysqli_query($con,$sqlins);
 
 if ($query) {
 	#ini_set(varname, newvalue);
-	mail('italopirata06@gmail.com',$ass,$msg,'From: italopirata06@gmail.com');
+	//mail('italopirata06@gmail.com',$ass,$msg,'To: italopirata06@gmail.com');
+
+   // note the comma
+
+// Subject
+
+
+// Message
+$message = '
+<html>
+<head>
+  <title>'.$ass.'</title>
+</head>
+<body>
+  <p>'.$msg.'</p>
+  
+</body>
+</html>
+';
+
+// To send HTML mail, the Content-type header must be set
+$headers = 'MIME-Version: 1.0'.'/r/n';
+$headers .= 'Content-type: text/html; charset=iso-8859-1'.'/r/n';
+
+
+// Mail it
+mail($_POST['email'],$ass, $message,$headers);
+
 
 	echo '<script type="text/javascript">
 	alert("Messagem Entregue!");
-	
+	location.href = "index.php";
 </script>';
 
 
 	
 }
+
+
 
 //Como mandar email para admin do site
 //Configurar depois o sendmail

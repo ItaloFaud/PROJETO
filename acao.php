@@ -58,7 +58,7 @@ header('location: cart.php?tipo='.$tipo.'&cep='.$cep.'&frete='.$val->Valor.'&pra
 	foreach ($_SESSION['carrinho'] as $id => $qnt) {
 	if (isset($_GET['id'.$id])) {
 	if ($qnt ==  $_GET['id'.$id]) {
-	echo "OI";	
+	//echo "OI";	
 	}else{
 		$_SESSION['carrinho'][$id] = $_GET['id'.$id];
 	}
