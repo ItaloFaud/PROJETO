@@ -12,7 +12,8 @@
 				</div>
 
 				<span class="topbar-child1">
-					Free shipping for standard order over R$1000
+					Frete grátis para pedidos padrão acima de R $ 1000
+
 				</span>
 
 				<div class="topbar-child2">
@@ -37,15 +38,11 @@
 							</li>
 
 							<li>
-								<a href="product.php">Shop</a>
-							</li>
-
-							<li class="sale-noti">
-								<a href="product.php">Sale</a>
+								<a href="product.php">Loja</a>
 							</li>
 
 							<li>
-								<a href="cart.php">Features</a>
+								<a href="cart.php">Carrinho</a>
 							</li>
 
 							<li>
@@ -61,7 +58,7 @@
 							</li> -->
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="contact.php">Contato</a>
 							</li>
 						</ul>
 					</nav>
@@ -134,16 +131,10 @@
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
 									<a href="cart.php" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										View Cart
+										Ver carrinho
 									</a>
 								</div>
 
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Check Out
-									</a>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -232,14 +223,16 @@
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
 									<a href="cart.php" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										View Cart
+										Ver carrinho
+
 									</a>
 								</div>
 
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
 									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Check Out
+										Confira
+
 									</a>
 								</div>
 							</div>
@@ -261,7 +254,7 @@
 				<ul class="main-menu">
 					<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
 						<span class="topbar-child1">
-							Free shipping for standard order over R$1000
+							Frete grátis para pedidos padrão acima de R $ 1000
 
 						</span>
 					</li>

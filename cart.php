@@ -1,4 +1,5 @@
 <?php session_start(); 
+error_reporting(0);
 
 //error_reporting(0);
 
@@ -94,7 +95,8 @@
 	<!-- Title Page -->
 	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-01.jpg);">
 		<h2 class="l-text2 t-center">
-			Cart
+			Carrinho
+
 		</h2>
 	</section>
 
@@ -202,7 +204,7 @@
 			<!-- Total -->
 			<div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
 				<h5 class="m-text20 p-b-24">
-					Cart Totals
+					Totais do carrinho
 				</h5>
 
 				<!--  -->

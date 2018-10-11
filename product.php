@@ -105,10 +105,12 @@
 	<!-- Title Page -->
 	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(images/heading-pages-002.jpg);">
 		<h2 class="l-text2 t-center">
-			Women
+			Mulheres
+
 		</h2>
 		<p class="m-text13 t-center">
-			New Arrivals Women Collection 2018
+			Recém-chegados mulheres coleção 2018
+
 		</p>
 	</section>
 
@@ -416,12 +418,13 @@
 		<div class="flex-w p-b-90">
 			<div class="w-size6 p-t-30 p-l-15 p-r-15 respon3">
 				<h4 class="s-text12 p-b-30">
-					GET IN TOUCH
+					ENTRAR EM CONTATO
+
 				</h4>
 
 				<div>
 					<p class="s-text7 w-size27">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+						Alguma pergunta? Deixe-nos saber na loja no 8º andar, 379 Hudson St, Nova York, NY 10018 ou ligue para (+1) 96 716 6879
 					</p>
 
 					<div class="flex-m p-t-30">
@@ -436,7 +439,7 @@
 
 			<div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
 				<h4 class="s-text12 p-b-30">
-					Categories
+					categorias
 				</h4>
 
 				<ul>
@@ -473,25 +476,27 @@
 				<ul>
 					<li class="p-b-9">
 						<a href="#" class="s-text7">
-							Search
+							Pesquisa
 						</a>
 					</li>
 
 					<li class="p-b-9">
 						<a href="#" class="s-text7">
-							About Us
+							Sobre nós
+
 						</a>
 					</li>
 
 					<li class="p-b-9">
 						<a href="#" class="s-text7">
-							Contact Us
+							Contate-Nos
+
 						</a>
 					</li>
 
 					<li class="p-b-9">
 						<a href="#" class="s-text7">
-							Returns
+							Retorna
 						</a>
 					</li>
 				</ul>
@@ -499,19 +504,20 @@
 
 			<div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
 				<h4 class="s-text12 p-b-30">
-					Help
+					socorro
 				</h4>
 
 				<ul>
 					<li class="p-b-9">
 						<a href="#" class="s-text7">
-							Track Order
+							Acompanhar Pedido
+
 						</a>
 					</li>
 
 					<li class="p-b-9">
 						<a href="#" class="s-text7">
-							Returns
+							Retorna
 						</a>
 					</li>
 
@@ -531,7 +537,8 @@
 
 			<div class="w-size8 p-t-30 p-l-15 p-r-15 respon3">
 				<h4 class="s-text12 p-b-30">
-					Newsletter
+					Boletim de Notícias
+
 				</h4>
 
 				<form>
@@ -543,7 +550,8 @@
 					<div class="w-size2 p-t-20">
 						<!-- Button -->
 						<button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">
-							Subscribe
+							Se inscrever
+
 						</button>
 					</div>
 
@@ -573,7 +581,7 @@
 			</a>
 
 			<div class="t-center s-text8 p-t-20">
-				NeoCopyright © 2018 All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+				NeoCopyright © 2018 Todos os direitos reservados. | Este modelo é feito com<i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 			</div>
 		</div>
 	</footer>
