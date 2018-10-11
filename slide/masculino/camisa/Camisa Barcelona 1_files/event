@@ -1,0 +1,23 @@
+﻿/*<!--*/(function() {var qss="&cb="+Math.floor(99999999999*Math.random());try{qss+="&ref="+encodeURIComponent(document.referrer)}catch(e){}try{qss+="&sc_r="+encodeURIComponent(screen.width+"x"+screen.height)}catch(e){}try{qss+="&sc_d="+encodeURIComponent(screen.colorDepth.toString())}catch(e){}var callDis=function(e,t){var n=function(){callDisInternal(e,t)};"complete"===document.readyState?setTimeout(n):window.addEventListener?window.addEventListener("load",n,!1):window.attachEvent("onload",n)},disCalled=!1,callDisInternal=function(e,t){if(!disCalled){disCalled=!0;var n="//"+t+"/dis/dis.aspx",o=document.createElement("iframe");o.width=o.height="0",o.style.display="none",o.src=(n+"?p="+e+qss).substring(0,2e3);var r=document.getElementById("criteoTagsContainer");r?(r.appendChild(o),"undefined"!=typeof criteo_q&&"function"==typeof criteo_q.removeLater&&criteo_q.removeLater(o)):criteo_q.push({event:"appendTag",element:o})}};
+callDis(3518, 'dis.us.criteo.com');
+})();
+
+(function() {
+var callWCADestination = function(aurl) {
+    var url = 'https://' + aurl;
+    var p = document.createElement('iframe');
+    p.width = p.height = '0';
+    p.style.display = 'none';
+    var iframeSource = "javascript:(function(){var d=document;";
+    iframeSource += 'd.createElement("img").src="' + encodeURI(url) + '";';
+    iframeSource += "setTimeout(function(){d.open();d.write('');d.close();},1000);})();";
+    p.src = iframeSource;
+    if (criteo_q) {
+        criteo_q.push({ event: 'appendTag', element: p, requiresDOM: 'non-blocking' });
+    }
+}
+var cto_fw_url = 'www.facebook.com/tr/?id=1461473410812739&ev=ViewContent&cd[content_type]=product&cd[content_ids]=%5B%228267797730166900599%22%5D&cd[product_catalog_id]=680360612110726&cd[product_category]=799547273&cd[criteo_audience_3_0]=B3&cd[external_id]=8e2c4777-d532-4b5f-8b28-021db88dc2ca&cd[application_id]=423936147658676';
+callWCADestination(cto_fw_url);})();
+
+
+/*-->*/
